@@ -28,8 +28,8 @@ jobs:
                 run: |
                     mkdir minified
                     find views -type f -name "*.js" -exec sh -c '
-                        for file; do
-                        relative_path="${file#./*/}"
+                    for file; do
+                        relative_path="${file#*/}"
                         minified_dir="minified/$(dirname "$relative_path")"
                         mkdir -p "$minified_dir"
                         terser "$file" -o "$minified_dir/$(basename "$file")"

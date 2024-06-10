@@ -1,0 +1,31 @@
+name: View verification
+
+on:
+    pull_request_target:
+        types: [opened, synchronize, reopened]
+
+jobs:
+    view-cleanup:
+        name: Views verification
+        runs-on: ubuntu-latest
+        steps:
+            -   name: checkout
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+
+            -   name: Set up node
+                uses: actions/setup-node@v4
+                with:
+                    node-version: 18
+
+            -   name: Install terser
+                run: npm install -g terser
+
+            -   name: run terser
+                run: |
+                    mkdir minified
+                    find views -type f -name "*.js" -exec sh -c '
+                    for file; do
+                        terser "$file" 1> /dev/null
+                    done' sh {} +
