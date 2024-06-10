@@ -53,7 +53,6 @@ jobs:
             -   name: Parse and sign the views
                 run: |
                     rm -rf output
-                    ls output
                     java -jar signer.jar --input=minified --output=output --key="${{ secrets.SIGNING_PRIV_KEY }}"
                     ls output
 
