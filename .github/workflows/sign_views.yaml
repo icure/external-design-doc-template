@@ -37,6 +37,10 @@ jobs:
                         minified_dir="minified/$(dirname "$relative_path")"
                         mkdir -p "$minified_dir"
                         terser "$file" -o "$minified_dir/$(basename "$file")"
+                        if [ $? -ne 0 ]; then
+                            echo "Invalid JS file $file" >&2
+                            exit 1
+                        fi
                         echo "Minified $file"
                     done' sh {} +
 
