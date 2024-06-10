@@ -60,7 +60,7 @@ jobs:
                 run: |
                     git config --global user.name "iCure devs"
                     git config --global user.email "dev@icure.com"
-                    git add -A output/*
+                    git add -u output/*
                     git status
                     git commit -m "Prepared and signed views"
                     git push
