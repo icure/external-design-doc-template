@@ -29,6 +29,10 @@ jobs:
                     mkdir minified
                     find views -type f -name "*.js" -exec sh -c '
                     for file; do
+                        if ! basename "$file" | grep -qE "^[0-9a-z_]+.js$"; then
+                            echo "Invalid view file name $file"
+                            exit 1 
+                        fi
                         relative_path="${file#*/}"
                         minified_dir="minified/$(dirname "$relative_path")"
                         mkdir -p "$minified_dir"
