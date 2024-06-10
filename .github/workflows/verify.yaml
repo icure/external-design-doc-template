@@ -24,8 +24,11 @@ jobs:
 
             -   name: run terser
                 run: |
-                    mkdir minified
                     find views -type f -name "*.js" -exec sh -c '
                     for file; do
+                        if ! basename "$file" | grep -qE "^[0-9a-z_]+.js$"; then
+                            echo "Invalid view file name $file"
+                            exit 1 
+                        fi
                         terser "$file" 1> /dev/null
                     done' sh {} +
