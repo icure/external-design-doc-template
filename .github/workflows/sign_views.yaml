@@ -53,13 +53,15 @@ jobs:
             -   name: Parse and sign the views
                 run: |
                     rm -rf output
+                    ls output
                     java -jar signer.jar --input=minified --output=output --key="${{ secrets.SIGNING_PRIV_KEY }}"
-                    
+                    ls output
 
             -   name: Commit and push
                 run: |
                     git config --global user.name "iCure devs"
                     git config --global user.email "dev@icure.com"
                     git add output/*
+                    git status
                     git commit -m "Prepared and signed views"
                     git push
