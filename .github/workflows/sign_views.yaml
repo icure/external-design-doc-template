@@ -43,7 +43,10 @@ jobs:
                     distribution: 'temurin'
 
             -   name: Parse and sign the views
-                run: java -jar signer.jar --input=minified --output=output --key="${{ secrets.SIGNING_PRIV_KEY }}"
+                run: |
+                    rm -rf output
+                    java -jar signer.jar --input=minified --output=output --key="${{ secrets.SIGNING_PRIV_KEY }}"
+                    
 
             -   name: Commit and push
                 run: |
